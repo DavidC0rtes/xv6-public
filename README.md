@@ -14,6 +14,7 @@ A partir del sistema operativo [xv6](https://github.com/mit-pdos/xv6-public) agr
 2. [Implementando uptime](#implementando-uptime)
 3. [Implementando count](#implementando-count)
 4. [Modo de uso](#uso)
+5. [Referencias](#referencias)
 
 ### Implementando date
 Para escribir el comando date, que en linux tiene una salida como `vie 05 jun 2020 22:51:18 -05` se tuvo en cuenta el archivo de cabecera date.h
@@ -140,3 +141,8 @@ el número indicado, de lo contrario se llama a `count` 23 veces, cada vez por l
 * `$ uptime`
 * `$ date`
 * `$ count <numero-llamada-al-sistema>` ó `$ count`
+
+### Referencias
+* Xv6, a Simple Unix-like Teaching Operating System." 6.828 / Fall 2014. Accessed April 04, 2015. (http://pdos.csail.mit.edu/6.828/2014/xv6.html.)
+* Junto al código fuente: book-rev8.pdf
+* Junto al código fuente: xv6.pdf
