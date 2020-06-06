@@ -55,9 +55,47 @@ exit();
 ```
 Se divide en 100 porque la médida de tiempo más pequeña a tomar en cuenta van a ser los segundos. Para saber cuantas horas han trancurrido
 se hace la división por 3600, para calcular los minutos se divide entre 60 el resto de la división anterior, y en el caso de los segundos
-estos se obtienen del resto de la división anterior. Un dato interesante que sucedió es que a pesar de que los cálculos estén bien planteados
+estos se obtienen del resto de la división anterior.
+```c
+int hours = time/3600;
+int mins = (time%3600) / 60;
+int secs = (time%3600) % 60;
+```
+Un dato interesante que sucedió es que a pesar de que los cálculos estén bien planteados
 y funcionen teoricamente, durante la ejecución de `date` muchas veces se observó que se calcula entre 1 y 3 segundos de más, probablemente 
 debido a errores de redondeo.
 
-
 ### Implementando count
+La función `syscall()` en syscall.c es el pilar fundamental en esta implementación, especialmente este fragmento:
+```c
+num = curproc->tf->eax;
+  if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
+    curproc->tf->eax = syscalls[num]();
+...
+```
+De allí se infiere que la variable `num` contiene el número que identifica la llamada al sistema que se va a realizar. Lo siguiente consistió entonces 
+en declarar un arreglo `calls[]` en el archivo de cabecera count.h, definirlo como variable global de 24 puestos en syscall.c y dentro de la función
+antes mencionada, incrementar la posición correspondiente en 1: `calls[num] += 1;`
+
+Posteriormente se creó una llamada al sistema `count`:
+```c
+int sys_count(void)
+{
+  int n;
+  if(argint(0, &n) < 0) {
+  		return -1;
+  } else {
+    	return calls[n];
+  }
+}
+```
+Con el objetivo de que acceda a las posiciones del arreglo `calls`, tal posición se le pasa como un puntero a `argint` una función encargada
+de captar los argumentos de las llamadas al sistema, de lo que se pudo observar, los argumentos de entrada de las llamadas al sistema
+primero se pasan como punteros a funciones del tipo `argint` o `argptr` antes de ser usadas en otros cálculos o procedimientos.
+
+Por último, en count.c se definió el arreglo `names` previamente declarado en count.h, allí se van a almacenar los nombres de las llamadas
+al sistema, esto con el objetivo de que a la hora de imprimir el número de veces que se ha usado una llamada al sistema el usuario vea su 
+nombre y no solo un número.
+
+La función `main` sigue el esqueleto planteado por el profesor, si se pasa un argumento por línea de comandos entonces se llama a `count` con
+el número indicado, de lo contrario se llama a `count` 23 veces, cada vez por llamada al sistema.
