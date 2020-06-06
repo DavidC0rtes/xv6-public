@@ -10,7 +10,7 @@ A partir del sistema operativo [xv6](https://github.com/mit-pdos/xv6-public) agr
 * `count`: imprime cuantas veces se ha utilizado una determinada llamada al sistema, ó cuantas veces se han utilizado todas las llamadas al sistema.
 
 ### Contenido
-1. [date](###implementando-date)
+1. [date](#implementando-date)
 2. [uptime](###implementando-uptime)
 3. [count](###implementando-count)
 4. [Modo de uso](###uso)
