@@ -5,16 +5,11 @@ void
 timef(uint time)
 {
 	int hours  = time/3600;
-	
-	int offset = time%3600;
-
-	int mins = offset/60;
-
-	int secs = offset%60;
+	int mins = (time%3600) / 60;
+	int secs = (time%3600) % 60;
 	if (secs >= 1) {
 		--secs;
 	}
-
 	printf(1, "up: %dh:%dm:%ds\n", hours, mins, secs);
 }
 
