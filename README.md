@@ -83,19 +83,50 @@ int sys_count(void)
 {
   int n;
   if(argint(0, &n) < 0) {
-  		return -1;
+	  return -1;
   } else {
-    	return calls[n];
+	  return calls[n];
   }
 }
 ```
-Con el objetivo de que acceda a las posiciones del arreglo `calls`, tal posición se le pasa como un puntero a `argint` una función encargada
+Con el objetivo de que acceda a las posiciones del arreglo `calls`, tal posición se le pasa como un puntero a `argint`, una función encargada
 de captar los argumentos de las llamadas al sistema, de lo que se pudo observar, los argumentos de entrada de las llamadas al sistema
 primero se pasan como punteros a funciones del tipo `argint` o `argptr` antes de ser usadas en otros cálculos o procedimientos.
 
 Por último, en count.c se definió el arreglo `names` previamente declarado en count.h, allí se van a almacenar los nombres de las llamadas
 al sistema, esto con el objetivo de que a la hora de imprimir el número de veces que se ha usado una llamada al sistema el usuario vea su 
 nombre y no solo un número.
-
+```c
+char* names[23] = {
+        "fork",
+        "exit",
+        "wait",
+        "pipe",
+        "read",
+        "kill",
+        "exec",
+        "fstat",
+        "chdir",
+        "dup",
+        "getpid",
+        "sbrk",
+        "sleep",
+        "uptime",
+        "open",
+        "write",
+        "mknod",
+        "unlink",
+        "link",
+        "mkdir",
+        "close",
+        "date",
+        "count"
+};
+```
 La función `main` sigue el esqueleto planteado por el profesor, si se pasa un argumento por línea de comandos entonces se llama a `count` con
 el número indicado, de lo contrario se llama a `count` 23 veces, cada vez por llamada al sistema.
+
+### Uso
+* `$ uptime`
+* `$ date`
+* `$ count <numero-llamada-al-sistema>`
