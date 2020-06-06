@@ -43,6 +43,21 @@ el nombre del mes correspondiente al número i.
 Por último se imprime la fecha actual en el formato dd-MM-YY HH:mm.
 
 ### Implementando uptime
+Se utilizó la llamada al sistema `uptime` que devuelve el numero de ticks del reloj que han sucedido, en el sistema xv6 se hacen 100 ticks por
+cada segundo, por lo tanto en el método principal de uptime.c se hace un llamado a uptime y a otra función que formatee la salida de uptime:
+```c
+if(uptime() < 0) {
+	printf(2, "uptime failed\n");
+}
+
+timef(uptime() / 100);
+exit();
+```
+Se divide en 100 porque la médida de tiempo más pequeña a tomar en cuenta van a ser los segundos. Para saber cuantas horas han trancurrido
+se hace la división por 3600, para calcular los minutos se divide entre 60 el resto de la división anterior, y en el caso de los segundos
+estos se obtienen del resto de la división anterior. Un dato interesante que sucedió es que a pesar de que los cálculos estén bien planteados
+y funcionen teoricamente, durante la ejecución de `date` muchas veces se observó que se calcula entre 1 y 3 segundos de más, probablemente 
+debido a errores de redondeo.
 
 
 ### Implementando count
