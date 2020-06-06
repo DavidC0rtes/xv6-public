@@ -11,9 +11,9 @@ A partir del sistema operativo [xv6](https://github.com/mit-pdos/xv6-public) agr
 
 ### Contenido
 1. [date](#implementando-date)
-2. [uptime](###implementando-uptime)
-3. [count](###implementando-count)
-4. [Modo de uso](###uso)
+2. [uptime](#implementando-uptime)
+3. [count](#implementando-count)
+4. [Modo de uso](#uso)
 
 
 ### Implementando date
