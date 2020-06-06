@@ -28,3 +28,12 @@ sys_date(void)
 	return 0;
 }
 ```
+
+`argptr` se usa para "sanear" el contenido de la estructura rtcdate, si todo va bien se llama a cmostime con el puntero a rtcdate como
+parametro para "traducir" el contenido de rtcdate a una forma más "amigable". 
+
+
+### Implementando uptime
+
+
+### Implementando count
