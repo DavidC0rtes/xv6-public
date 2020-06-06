@@ -6,6 +6,7 @@
 #include "memlayout.h"
 #include "mmu.h"
 #include "proc.h"
+#include "count.h"
 
 int
 sys_fork(void)
@@ -88,4 +89,27 @@ sys_uptime(void)
   xticks = ticks;
   release(&tickslock);
   return xticks;
+}
+
+
+int
+sys_date(void)
+{
+	struct rtcdate *r;
+	if(argptr(0, (void*)&r, sizeof(r)) < 0) {
+		return -1;
+	}
+
+	cmostime(r);
+	return 0;
+}
+
+int sys_count(void)
+{
+	int n;
+	if(argint(0, &n) < 0) {
+		return -1;
+	} else {
+		return calls[n];
+	}
 }
